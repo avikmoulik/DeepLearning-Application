@@ -1,0 +1,2 @@
+python /Users/avikmoulik/Desktop/DeepLearningApp/TextToSpeech.py
+python /Users/avikmoulik/Desktop/DeepLearningApp/ImageApp.py

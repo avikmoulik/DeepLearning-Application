@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Cache-control" content="no-cache">
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Cache-control" content="no-cache">
+
+	<title>Digit Recognition</title>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+	<!-- <link rel="stylesheet" type="text/css" href="static/style.css"> -->
+	<style>
+	.main-wrapper{
+	background-image: url('static/resources/background-1.jpeg');
+	background-size: cover;
+	background-position: center;
+	height:100%;
+}
+html,body{
+	width: 100%;
+	height: 100%;
+}
+/*.heading{
+	position: relative;
+	text-align: center;
+	font-size: 72px;
+	color: #fff;
+	float: right;
+    width: 60%;
+    margin-top: 92px;
+    font-family: fantasy;
+
+}
+.img-prc{
+	position: absolute;
+    left: 175px;
+    top: 200px;
+    width: 200px;
+    cursor:pointer;
+    height:130px;
+}
+.img-prc-icon{
+	position: absolute;
+    left: 180px;
+    top: 167px;
+    font-size: 25px;
+    cursor:pointer;
+    color:#fff;
+}
+.audio-prc-icon{
+	position: absolute;
+    right: 347px;
+    font-size: 30px;
+    top: 167px;
+    color: #fff;
+    cursor: pointer;
+}
+.audio-prc{
+	position: absolute;
+    right: 170px;
+    width: 200px;
+    top: 200px;
+    height:130px;
+    cursor: pointer;
+}
+
+.img-prc:hover{
+	box-shadow:10px 10px 5px 0px rgba(31,117,143,1);
+	width:210px;
+	left:170px;
+	top:195px;
+}
+
+.audio-prc:hover{
+	box-shadow:10px 10px 5px 0px rgba(31,117,143,1);
+	width:210px;
+	right:165px;
+	top:195px;
+}
+.digit-desc{
+	position: absolute;
+    top: 170px;
+    left: 217px;
+    font-size: 18px;
+    color: #fff;
+    font-weight: bold;
+}
+.audio-desc{
+	position: absolute;
+    top: 170px;
+    right:  210px;
+    font-size: 18px;
+    color: #fff;
+    font-weight: bold;
+}
+
+		.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+		.img-prc-reslt {
+  	position: absolute;
+    left: 265px;
+    top: 400px;
+    width: 300px;
+    cursor:pointer;
+    height:180px;
+    border: 2px solid #fff;
+}
+
+.heading_result{
+	position: relative;
+	text-align: center;
+	font-size: 72px;
+	color: #fff;
+	float: right;
+    width: 60%;
+    margin-top: 392px;
+    font-family: fantasy;
+
+}*/
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 20px;
+  height: 20px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+  display: none;
+  margin-top: 150px;
+    margin-left: 280px;
+}
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.wrapper{
+	float:right;
+	width:50%;
+	padding-top:20px;
+}
+.heading{
+	text-align: center;
+    font-size: 70px;
+    font-family: fantasy;
+    color: #fff;
+    margin-top: 60px;
+}
+.button-container{
+	overflow:auto;
+	margin-top:20px;
+	font-family: fantasy;
+	text-align: center;
+	padding: 0 30px;
+}
+.img,.audio{
+	float:left;
+	width:50%;
+	text-decoration: none;
+}
+
+.img img,.audio img{
+	width:150px;
+	height:80px;
+	cursor: pointer;
+}
+.img img:hover,.audio img:hover{
+	width:160px;
+	height:90px;
+}
+.audio-desc,.digit-desc{
+	margin-bottom: 5px;
+	font-size: 18px;
+	color:#fff;
+}
+.audio-desc i,.digit-desc i{
+	margin-right:5px;
+}
+.rslt-container{
+	margin-top: 65px;
+    text-align: center;
+}
+.rslt-container img{
+	 width: 350px;
+    height: 180px;
+}
+.heading-result{
+	font-size: 50px;
+    color: #fff;
+    font-weight: bold;
+    margin-top:25px;
+}
+.heading-result i{
+	margin-right: 10px;
+}
+.clear{
+	float: right;
+	margin-right: 20px;
+	color:#fff;
+}
+.display{
+	display: block !important;
+}
+.no-display{
+	display: none;
+	color: #fff;
+    margin-top: 10px;
+}
+
+	</style>
+
+</head>
+<body>
+	<div class="main-wrapper">
+		<div class="wrapper">
+		<div class="heading">
+			Deep Learners
+		</div>
+		<div class="button-container">
+		<a onclick="onLoad()" class="img" href="/digit"><div class="digit-desc"><i class="fas fa-camera img-prc-icon"></i>Digit Recognition</div><img class="img-prc" src="static/resources/image_processing.jpeg"></a>
+		<a onclick="onLoadAudio()" class="audio" href="/audio"><div class="audio-desc"><i class="fas fa-microphone audio-prc-icon"></i>Speech to Text</div><img class="audio-prc" src="static/resources/audio_processing.jpeg"></a>
+		<div class="loader" id="loading"></div>
+		<div class="no-display" id="img_load">Processing your image. Please wait.</div>
+		<div class="no-display" id="audio_load">Please start speaking.</div>
+	</div>
+</div>
+</div>
+<script type="text/javascript">
+	var onLoad=function(){
+		document.getElementById('loading').classList.add('display');
+		document.getElementById('img_load').classList.add('display');
+	}
+	var onLoadAudio=function(){
+		document.getElementById('loading').classList.add('display');
+		document.getElementById('audio_load').classList.add('display');
+	}
+</script>
+</body>
+</html>
