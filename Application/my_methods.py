@@ -1,81 +1,3 @@
-#--------------------------------
-# Input mnist
-#-------------------------------
-def read_img_mnist(filename):
-    
-    import cv2    
-    img = cv2.imread(filename)
-        
-    return (img)
-
-#----------------------------------------------------------------------------------------
-#----------------------------------------------------------------------------------------
-
-#--------------------------------
-# Input from paint
-#-------------------------------
-def read_img_paint(filename,img_width,img_height,w):
-    
-    import cv2 
-    import numpy as np
-    import math
-    
-    img = cv2.imread(filename)
-    img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
-    
-        # pre processing to get mnist like data format
-    while np.sum(img[0]) == 0:
-        img = img[1:]
-    
-    while np.sum(img[:,0]) == 0:
-        img = np.delete(img,0,1)
-    
-    while np.sum(img[-1]) == 0:
-        img = img[:-1]
-    
-    while np.sum(img[:,-1]) == 0:
-        img = np.delete(img,-1,1)
-    
-    rows,cols = img.shape
-    
-    if rows > cols:
-        factor = w/rows
-        rows = w
-        cols = int(round(cols*factor))
-        img = cv2.resize(img, (cols,rows))
-    else:
-        factor = w/cols
-        cols = w
-        rows = int(round(rows*factor))
-        img = cv2.resize(img, (cols, rows))
-        
-    colsPadding = (int(math.ceil((img_width-cols)/2.0)),int(math.floor((img_width-cols)/2.0)))
-    rowsPadding = (int(math.ceil((img_height-rows)/2.0)),int(math.floor((img_height-rows)/2.0)))
-    img = np.lib.pad(img,(rowsPadding,colsPadding),'constant')
-    
-    img = cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)
-        
-    return (img)
-
-#----------------------------------------------------------------------------------------
-#----------------------------------------------------------------------------------------
-
-
-#--------------------------------
-# Input Image from disk
-#-------------------------------
-def read_img_disk(filename):
-    
-    import cv2
-    
-    img = cv2.imread(filename)
-    gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
-    ret, bw = cv2.threshold(gray, 128, 255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
-    
-    return (img,bw)
-
-#----------------------------------------------------------------------------------------
-#----------------------------------------------------------------------------------------
 
 #--------------------------------
 # Edge Detection function
@@ -166,26 +88,6 @@ def read_img_url(url):
 #----------------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------------
 
-#--------------------------------
-# Input Image from mobile no edge detection
-#--------------------------------
-# Replace the URL with your own IPwebcam shot.jpg IP:port
-
-def read_img_url_noedge(url):
-    
-    import urllib
-    import cv2
-    import numpy as np
-    
-    img = cv2.imdecode(np.array(bytearray(urllib.request.urlopen(url).read()),dtype=np.uint8),-1)
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    gray = cv2.GaussianBlur(gray, (5, 5), 0)
-    bw = cv2.threshold(gray, 0, 255,cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
-    
-    return (img,bw)
-
-#----------------------------------------------------------------------------------------
-#----------------------------------------------------------------------------------------
 
 #--------------------------------
 # function for Model Definition
@@ -300,28 +202,5 @@ def img_segmentation(bw,img_width,img_height,w,weights_to_use):
     print ('I think this digit is a ' + dig_fin )
     return dig_fin
 
-#--------------------------------
-# function prediction
-#--------------------------------
 
-def img_predict_mnist(img,img_width,img_height,weights_to_use):
     
-    import numpy as np
-    import my_methods
-
-    model = my_methods.create_model(img_width,img_height)
-    model.load_weights(weights_to_use)
-    arr = np.array(img).reshape((img_width,img_height,3))
-    arr = np.expand_dims(arr, axis=0)
-    arr = arr/255
-    prediction = model.predict(arr)[0]
-    bestclass = ''
-    bestconf = -1
-    for n in [0,1,2,3,4,5,6,7,8,9]:
-        if (prediction[n] > bestconf):
-            bestclass = str(n)
-            bestconf = prediction[n]
-    dig = bestclass
-    
-    dig_fin = ''.join(dig)
-    print ('I think this digit is a ' + dig_fin )

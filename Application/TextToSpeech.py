@@ -54,6 +54,7 @@ Builder.load_string('''
 
 ''')
 
+Dir = "/Users/avikmoulik/Documents/Work/GIT_REPOS/DeepLearning-Application/Application/"
 
 class MyLayout(BoxLayout):
 	
@@ -61,7 +62,7 @@ class MyLayout(BoxLayout):
 	def clk2(self):
 		
 
-		filename = "/Users/avikmoulik/Desktop/DeepLearningApp/a1.wav"
+		filename = Dir+"a1.wav"
 
 		CHUNK = 1024
 		FORMAT = pyaudio.paInt16
@@ -97,7 +98,7 @@ class MyLayout(BoxLayout):
 		wf.writeframes(b''.join(frames))
 		wf.close()
 
-		print ('Recording Done')
+		print ('Recording Done, We are processing the audio')
 
 		client = speech.SpeechClient()
 

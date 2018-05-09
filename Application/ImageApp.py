@@ -53,16 +53,14 @@ Builder.load_string('''
 
 
 ''')
-
+Dir = "/Users/avikmoulik/Documents/Work/GIT_REPOS/DeepLearning-Application/Application/"
+url='http://192.168.1.118:8080/shot.jpg'
+weights_to_use = Dir+'mnistneuralnet_new.h5'
 
 class MyLayout(BoxLayout):
     
     def clk1(self):
         
-
-        url='http://192.168.1.118:8080/shot.jpg'
-
-        weights_to_use= '/Users/avikmoulik/Documents/Work/Digit Recognition/Dig Recg/mnistneuralnet_new.h5'
 
         img_width, img_height = 28, 28
 
@@ -72,7 +70,7 @@ class MyLayout(BoxLayout):
         thresh = cv2.threshold(myimg, 0, 255,cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
         thresh = cv2.resize(thresh, (500, 300))
 
-        cv2.imwrite('/Users/avikmoulik/Desktop/DeepLearningApp/im.jpeg',thresh)
+        cv2.imwrite(Dir+'im.jpeg',thresh)
 
 
         strng = my_methods.img_segmentation(myimg,img_width,img_height,20,weights_to_use)

@@ -9,12 +9,15 @@ from google.cloud import speech
 from google.cloud.speech import enums
 from google.cloud.speech import types
 import time
+import my_methods
 
 
 app = Flask(__name__)
 
 
- 
+Dir = "/Users/avikmoulik/Documents/Work/GIT_REPOS/DeepLearning-Application/WebPage/"
+url='http://192.168.1.118:8080/shot.jpg'
+weights_to_use = Dir+'mnistneuralnet_new.h5'
 
 @app.route('/')
 
@@ -28,14 +31,7 @@ def img_prc():
 @app.route('/digit')
 
 def image_main_page():
-
-	#setwd = '/Users/avikmoulik/Desktop/digit-recognition/static'
-	#os.chdir(setwd)
-	import my_methods
-
-	url='http://192.168.43.1:8080/shot.jpg'
-
-	weights_to_use= '/Users/avikmoulik/Documents/Work/Digit Recognition/Dig Recg/mnistneuralnet_new.h5'
+	
 
 	img_width, img_height = 28, 28
 
@@ -45,9 +41,7 @@ def image_main_page():
 	thresh = cv2.threshold(myimg, 0, 255,cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
 	thresh = cv2.resize(thresh, (500, 300))
 
-	#cv2.imwrite('/Users/avikmoulik/Desktop/digit-recognition/static/im1.jpeg',myimg)
-	#cv2.imwrite('/Users/avikmoulik/Desktop/digit-recognition/static/im2.jpeg',orig)
-	cv2.imwrite('/Users/avikmoulik/Desktop/digit-recognition/static/im3.jpeg',thresh)
+	cv2.imwrite(Dir+'static/im3.jpeg',thresh)
 
 
 	strng = my_methods.img_segmentation(myimg,img_width,img_height,20,weights_to_use)
@@ -58,7 +52,7 @@ def image_main_page():
 @app.route('/audio')
 def audio_main_page():
 
-	filename = "/Users/avikmoulik/Desktop/digit-recognition/static//a1.wav"
+	filename = Dir+'a1.wav'
 
 	CHUNK = 1024
 	FORMAT = pyaudio.paInt16
